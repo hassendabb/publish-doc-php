@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<h1>
+		Liste des Annonces
+	</h1>
+
+	<table border="1">
+
+		<tr>
+
+			<td>
+				Type
+			</td>
+
+			<td>
+				Superficie
+			</td>
+
+			<td>
+				Nombre des pièces
+			</td>
+
+			<td>
+				Localisation
+			</td>
+
+			<td>
+				Prix
+			</td>
+
+			<td>
+				Photo
+			</td>
+			<td>
+				Description
+			</td>
+			<td>
+				Contact
+			</td>
+
+
+		</tr>
+		{% for a in listAnnonces %}
+
+			<tr>
+
+				<td>
+					{{a.type}}
+				</td>
+
+				<td>
+					{{a.superficie}}
+				</td>
+
+				<td>
+					{{a.nb_pieces}}
+                </td>
+				<td>
+                    {{ a.localisation}}
+				</td>
+
+
+				<td>
+                   {{ a.prix}}
+				</td>
+
+				<td>
+					{{a.photo}}
+				</td>
+
+				<td>
+					{{a.description}}
+				</td>
+				<td>
+					{{a.contact}}
+				</td>
+
+
+			</tr>
+
+		{% endfor %}
+
+
+	</table>
+
+
+</html>
