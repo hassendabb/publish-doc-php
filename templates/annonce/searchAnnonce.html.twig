@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html>
+<h1>Recherche Annonce</h1>
+<form action="" method="POST">
+    Type : <input type="text" name="input_type">
+    <input type="submit" value="search">
+</form>
 
-	<h1>
-		Liste des Annonces
-	</h1>
+{%  if annonces is empty %}
+Aucune Annonce trouvée
 
-	<table border="1">
-
-		<tr>
-
-			<td>Type</td>
+{% else %}
+    <table border="1">
+        <tr>
+            <td>Type</td>
 			<td>Superficie</td>
 			<td>Nombre des pièces</td>
 			<td>Localisation</td>
@@ -17,9 +18,8 @@
 			<td>Photo</td>
 			<td>Description</td>
 			<td>Contact</td>
-			
-		</tr>
-		{% for a in listAnnonces %}
+        </tr>
+      {% for a in annonces %}
 
 			<tr>
 
@@ -58,9 +58,9 @@
 			</tr>
 
 		{% endfor %}
+    </table>
+
+{% endif %}
 
 
-	</table>
 
-
-</html>
