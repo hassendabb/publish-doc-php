@@ -86,7 +86,7 @@ class Annonce
         return $this;
     }
 
-    public function getnb_pieces(): ?int
+    public function getnbPieces(): ?int
     {
         return $this->nb_pieces;
     }

@@ -8,20 +8,19 @@ use App\Form\AnnonceForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AnnonceController extends AbstractController
 {
 
     /**
-     * @Route("/annonce", name='getAnnonce')
+     * @Route("/annonce", name="getAnnonce")
      */
     public function listAnnonce(): Response
     {
-
         $em = $this->getDoctrine()->getManager();
         $annonces = $em->getRepository(Annonce::class)->findAll();
-
         return $this->render('annonce/annonce.html.twig', [
             "listAnnonces" => $annonces
         ]);
@@ -29,7 +28,7 @@ class AnnonceController extends AbstractController
 
 
     /** 
-     *@Route(‘/addAnnonce’, name='add_annonce') 
+     *@Route("/addAnnonce", name="add_annonce") 
      */
     public function addAnnonce(Request $request): Response
     {
@@ -40,7 +39,7 @@ class AnnonceController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($annonce);
             $em->flush();
-            return $this->redirectToRoute('annonce');
+            return $this->redirectToRoute('getAnnonce');
         }
         return $this->render('annonce/addAnnonce.html.twig', [
             'formAnnonce' => $form->createView()
@@ -66,7 +65,7 @@ class AnnonceController extends AbstractController
             $em->persist($annonce);
             $em->flush();
 
-            return $this->redirectToRoute('annonce');
+            return $this->redirectToRoute('getAnnonce');
         }
 
         return $this->render('annonce/updateAnnonce.html.twig', [
@@ -91,7 +90,7 @@ class AnnonceController extends AbstractController
             throw new NotFoundHttpException("L'annonce d'id ".$id."n'existe pas");
         }
 
-        return $this->redirectToRoute('annonce');
+        return $this->redirectToRoute('getAnnonce');
     }
 
      /**
