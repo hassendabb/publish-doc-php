@@ -91,6 +91,11 @@ class Annonce
         return $this->nb_pieces;
     }
 
+    public function getnb_pieces(): ?int
+    {
+        return $this->nb_pieces;
+    }
+    
     public function setNbPieces(int $nb_pieces): self
     {
         $this->nb_pieces = $nb_pieces;

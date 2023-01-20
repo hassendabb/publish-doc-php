@@ -14,22 +14,40 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnnonceController extends AbstractController
 {
 
+
     /**
      * @Route("/annonce", name="getAnnonce")
      */
-    public function listAnnonce(): Response
+    public function listAnnonce(Request $request): Response
     {
+
         if (is_null($this->getUser())) {
             return $this->redirectToRoute('app_login');
         }
-
+        
         $em = $this->getDoctrine()->getManager();
-        $annonces = $em->getRepository(Annonce::class)->findAll();
-        return $this->render('annonce/annonce.html.twig', [
-            "listAnnonces" => $annonces
-        ]);
-    }
+        $annonces = null;
 
+        if ($request->isMethod('POST')) {
+            $type = $request->request->get("input_type");
+            if( $type==''){
+                $annonces = $em->getRepository(Annonce::class)->findAll();
+            }else{
+                $query = $em->createQuery(
+                    "SELECT a FROM App\Entity\Annonce a where a.type LIKE '" . $type . "'"
+                );
+                $annonces = $query->getResult();
+            }
+          
+        }else{
+            $annonces = $em->getRepository(Annonce::class)->findAll();
+        }
+
+        return $this->render(
+            "annonce/annonce.html.twig",
+            ["annonces" => $annonces]
+        );
+    }
 
     /** 
      *@Route("/addAnnonce", name="add_annonce") 
@@ -107,32 +125,6 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('getAnnonce');
     }
 
-    /**
-     * @Route("/searchAnnonce", name="search_annonce")
-     */
-    public function searchAnnonce(Request $request): Response
-    {
-
-        if (is_null($this->getUser())) {
-            return $this->redirectToRoute('app_login');
-        }
-        
-        $em = $this->getDoctrine()->getManager();
-        $annonces = null;
-
-        if ($request->isMethod('POST')) {
-            $type = $request->request->get("input_type");
-            $query = $em->createQuery(
-                "SELECT a FROM App\Entity\Annonce a where a.type LIKE '" . $type . "'"
-            );
-            $annonces = $query->getResult();
-        }
-
-        return $this->render(
-            "annonce/searchAnnonce.html.twig",
-            ["annonces" => $annonces]
-        );
-    }
 
     public function index(): Response
     {
