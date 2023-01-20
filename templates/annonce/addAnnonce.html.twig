@@ -1,7 +1,79 @@
-<h1>Ajout d'une Annonce</h1>
 
-<form action="" method="Post">
-    {{ form_widget(formAnnonce) }}
-    <input type="submit" value="Add Annonce">
-</form>
+{% extends 'base.html.twig' %}
 
+{% block body %}
+
+
+    <div class="d-flex justify-content-center m-3">
+
+        <form class="mb-3" action="" method="Post">
+            <h1 class="mb-3" >Ajout d'une Annonce</h1>
+
+        {{ form_start(formAnnonce) }}
+
+            <div class="invalid-feedback">
+                {{ form_errors(formAnnonce) }}
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(formAnnonce.type) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(formAnnonce.type, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+            
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(formAnnonce.superficie) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(formAnnonce.superficie, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(formAnnonce.nb_pieces) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(formAnnonce.nb_pieces, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(formAnnonce.localisation) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(formAnnonce.localisation, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(formAnnonce.prix) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(formAnnonce.prix, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(formAnnonce.photo) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(formAnnonce.photo, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(formAnnonce.description) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(formAnnonce.description, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(formAnnonce.contact) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(formAnnonce.contact, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary float-end" value="Add Annonce">
+
+        {{ form_end(formAnnonce) }}
+        </form>
+     </div>
+{% endblock %}
