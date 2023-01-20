@@ -19,6 +19,10 @@ class AnnonceController extends AbstractController
      */
     public function listAnnonce(): Response
     {
+        if (is_null($this->getUser())) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $annonces = $em->getRepository(Annonce::class)->findAll();
         return $this->render('annonce/annonce.html.twig', [
@@ -32,6 +36,10 @@ class AnnonceController extends AbstractController
      */
     public function addAnnonce(Request $request): Response
     {
+        if (is_null($this->getUser())) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceForm::class, $annonce);
         $form->handleRequest($request);
@@ -52,6 +60,9 @@ class AnnonceController extends AbstractController
      */
     public function updateAnnonce(Request $request, $id): Response
     {
+        if (is_null($this->getUser())) {
+            return $this->redirectToRoute('app_login');
+        }
 
         $em = $this->getDoctrine()->getManager();
         $annonce = $em->getRepository("App\Entity\Annonce")->find($id);
@@ -78,39 +89,49 @@ class AnnonceController extends AbstractController
      */
     public function deleteAnnonce($id): Response
     {
-        $em= $this->getDoctrine()->getManager();
+        if (is_null($this->getUser())) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $em = $this->getDoctrine()->getManager();
         $annonce = $em->getRepository("App\Entity\Annonce")->find($id);
 
-        if($annonce!== null){
+        if ($annonce !== null) {
 
             $em->remove($annonce);
             $em->flush();
-
-        }else{
-            throw new NotFoundHttpException("L'annonce d'id ".$id."n'existe pas");
+        } else {
+            throw new NotFoundHttpException("L'annonce d'id " . $id . "n'existe pas");
         }
 
         return $this->redirectToRoute('getAnnonce');
     }
 
-     /**
+    /**
      * @Route("/searchAnnonce", name="search_annonce")
      */
     public function searchAnnonce(Request $request): Response
     {
+
+        if (is_null($this->getUser())) {
+            return $this->redirectToRoute('app_login');
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $annonces = null;
 
-        if($request->isMethod('POST')){
+        if ($request->isMethod('POST')) {
             $type = $request->request->get("input_type");
             $query = $em->createQuery(
-                "SELECT a FROM App\Entity\Annonce a where a.type LIKE '".$type."'")
-            ;
+                "SELECT a FROM App\Entity\Annonce a where a.type LIKE '" . $type . "'"
+            );
             $annonces = $query->getResult();
         }
 
-        return $this->render("annonce/searchAnnonce.html.twig",
-            ["annonces"=>$annonces]);
+        return $this->render(
+            "annonce/searchAnnonce.html.twig",
+            ["annonces" => $annonces]
+        );
     }
 
     public function index(): Response
