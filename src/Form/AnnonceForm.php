@@ -16,7 +16,7 @@ class AnnonceForm extends AbstractType
         $builder->add('type', TextType::class)
             ->add('superficie', IntegerType::class)
             ->add('nb_pieces', IntegerType::class)
-            ->add('localisation', NumberType::class)
+            ->add('localisation', TextType::class)
             ->add('prix', NumberType::class)
             ->add('photo', TextType::class)
             ->add('description', TextType::class)
