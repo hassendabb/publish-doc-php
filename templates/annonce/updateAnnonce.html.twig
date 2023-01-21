@@ -1,7 +1,79 @@
-<h1>Mise à jour d'une Annonce</h1>
 
-<form action="" method="Post">
-    {{ form_widget(editFormAnnonce) }}
-    <input type="submit" value="MAJ Annonce">
-</form>
+{% extends 'base.html.twig' %}
 
+{% block body %}
+
+
+    <div class="d-flex justify-content-center m-3">
+
+        <form class="mb-3" action="" method="Post">
+            <h1 class="mb-3" >Mise à jour d'une Annonce</h1>
+
+        {{ form_start(editFormAnnonce) }}
+
+            <div class="invalid-feedback">
+                {{ form_errors(editFormAnnonce) }}
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(editFormAnnonce.type) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(editFormAnnonce.type, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+            
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(editFormAnnonce.superficie) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(editFormAnnonce.superficie, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(editFormAnnonce.nb_pieces) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(editFormAnnonce.nb_pieces, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(editFormAnnonce.localisation) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(editFormAnnonce.localisation, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(editFormAnnonce.prix) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(editFormAnnonce.prix, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(editFormAnnonce.photo) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(editFormAnnonce.photo, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(editFormAnnonce.description) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(editFormAnnonce.description, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">{{ form_label(editFormAnnonce.contact) }}</label>
+                <div class="col-sm-8">
+                    {{ form_widget(editFormAnnonce.contact, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary float-end" value="Modifier Annonce">
+
+        {{ form_end(editFormAnnonce) }}
+        </form>
+     </div>
+{% endblock %}

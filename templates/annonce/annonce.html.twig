@@ -11,19 +11,26 @@
 	{% endblock %}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<h1>
-		Liste des Annonces
-	</h1>
 
+    <h1>Liste des Annonces</h1>
+
+	{%  if isAdmin  %}
+    <div class="d-flex justify-content-end">
+  		<a href="{{ path('app_logout') }}" class="btn">
+			<i class="fa fa-sign-out " aria-hidden="true"></i>
+		</a>
+	</div>
+	{% endif %}
 
 	<form action="" method="POST">
 		Type :
 		<input type="text" name="input_type">
 		<input type="submit" value="search">
-		<a href="{{ path('add_annonce') }}" class="btn">
-
-		<i class="fa fa-plus" aria-hidden="true"></i>
-	</a>
+		{%  if isAdmin  %}
+			<a href="{{ path('add_annonce') }}" class="btn">
+				<i class="fa fa-plus" aria-hidden="true"></i>
+			</a>
+		{% endif %}
 
 	</form>
 
@@ -43,8 +50,10 @@
 					<th scope="col">Photo</th>
 					<th scope="col">Description</th>
 					<th scope="col">Contact</th>
-					<th scope="col">Actions</th>
 
+					{%  if isAdmin  %}
+						<th scope="col">Actions</th>
+					{% endif %}
 
 				</tr>
 			</thead>
@@ -81,18 +90,18 @@
 						<td>
 							{{a.contact}}
 						</td>
-						<td>
-							<a href="{{ path('update_annonce', {'id': a.id}) }}" class="btn">
-								<i class="fa fa-edit"></i>
+						{%  if isAdmin  %}
+							<td >
+								<a href="{{ path('update_annonce', {'id': a.id}) }}" class="btn">
+									<i class="fa fa-edit"></i>
 
-							</a>
+								</a>
 
-							<a href="{{ path('delete_annonce', {'id': a.id}) }}" class="btn">
-								<i class="fa fa-trash"></i>
-							</a>
-						</td>
-
-
+								<a href="{{ path('delete_annonce', {'id': a.id}) }}" class="btn">
+									<i class="fa fa-trash"></i>
+								</a>
+							</td>
+						{% endif %}
 					</tr>
 
 				{% endfor %}

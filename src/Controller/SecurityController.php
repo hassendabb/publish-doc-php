@@ -14,6 +14,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        // return $this->redirectToRoute('app_logout');
 
         if ($this->getUser()) {
             return $this->redirectToRoute('getAnnonce');

@@ -16,36 +16,34 @@ class AnnonceController extends AbstractController
 
 
     /**
-     * @Route("/annonce", name="getAnnonce")
+     * @Route("/", name="getAnnonce")
      */
     public function listAnnonce(Request $request): Response
     {
 
-        if (is_null($this->getUser())) {
-            return $this->redirectToRoute('app_login');
-        }
-        
         $em = $this->getDoctrine()->getManager();
         $annonces = null;
 
         if ($request->isMethod('POST')) {
             $type = $request->request->get("input_type");
-            if( $type==''){
+            if ($type == '') {
                 $annonces = $em->getRepository(Annonce::class)->findAll();
-            }else{
+            } else {
                 $query = $em->createQuery(
                     "SELECT a FROM App\Entity\Annonce a where a.type LIKE '" . $type . "'"
                 );
                 $annonces = $query->getResult();
             }
-          
-        }else{
+        } else {
             $annonces = $em->getRepository(Annonce::class)->findAll();
         }
 
         return $this->render(
             "annonce/annonce.html.twig",
-            ["annonces" => $annonces]
+            [
+                "annonces" => $annonces,
+                "isAdmin" => !is_null($this->getUser())
+            ]
         );
     }
 
